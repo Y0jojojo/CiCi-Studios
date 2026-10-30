@@ -69,10 +69,9 @@ description: "Events and gatherings at CiCi Studios in Berlin."
     }
 
     const posterTemplate = document.getElementById("poster-template");
-    const posterMarkup = posterTemplate.innerHTML;
     const posters = posterTemplate.content.querySelectorAll(".poster");
 
-    if (!posterMarkup.includes("{%") && posters.length > 0) {
+    if (posters.length > 0) {
       document.getElementById("poster-grid").append(posterTemplate.content.cloneNode(true));
       document.getElementById("poster-empty-state").hidden = true;
     }
