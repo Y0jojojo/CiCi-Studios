@@ -1,0 +1,81 @@
+---
+layout: null
+title: "Events — CiCi Studios"
+description: "Events and gatherings at CiCi Studios in Berlin."
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#11120f">
+  <title>Events — CiCi Studios</title>
+  <meta name="description" content="Events and gatherings at CiCi Studios in Berlin.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site-pages.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="../index_v2.html" aria-label="CiCi Studios home">
+      <img src="../Cici_Logo_Wordmark_White.png" alt="CiCi Studios">
+    </a>
+    <nav class="header-meta" aria-label="Main navigation">
+      <span class="location">Berlin, DE</span>
+      <a href="../events/" aria-current="page">Events</a>
+      <a href="../rent/">Rent our spaces</a>
+      <a href="../contact/">Contact</a>
+      <a href="../index_v2.html#frequency">The frequency <span aria-hidden="true">↘</span></a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="page-hero" aria-labelledby="page-title">
+      <p class="page-kicker">Gather / Listen / Share · Berlin</p>
+      <h1 class="page-title" id="page-title">Events <span>at CiCi.</span></h1>
+      <p class="page-intro">A living noticeboard for performances, workshops, listening sessions, and gatherings. Come see what is happening in the studio.</p>
+    </section>
+    <section class="content-section" aria-label="Event posters">
+      <div class="poster-grid" id="poster-grid"></div>
+      <template id="poster-template">
+        {% assign poster_files = site.static_files | where_exp: "file", "file.path contains 'events_posters/'" | sort: "name" %}
+        {% assign image_extensions = ".jpg,.jpeg,.png,.webp,.gif,.avif" | split: "," %}
+        {% for poster in poster_files %}
+          {% assign poster_extension = poster.extname | downcase %}
+          {% if image_extensions contains poster_extension %}
+            <figure class="poster">
+              <img src="{{ poster.path | relative_url }}" alt="{{ poster.name | remove: poster.extname | replace: '-', ' ' | replace: '_', ' ' | escape }}" loading="lazy">
+            </figure>
+          {% endif %}
+        {% endfor %}
+      </template>
+      <div class="empty-state" id="poster-empty-state">
+        <p class="page-kicker">The next transmission is loading</p>
+        <h2>Posters will appear here.</h2>
+        <p>Add event poster images to the <code>events_posters</code> folder. JPG, PNG, WebP, GIF, and AVIF images will be picked up automatically when the GitHub Pages site is published.</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>© 2026 CiCi Studios</p>
+    <p>Independent by nature · Together by design</p>
+  </footer>
+  <script src="../assets/js/signal-color.js"></script>
+  <script>
+    const leadingText = document.body.firstChild;
+    if (leadingText?.nodeType === Node.TEXT_NODE && leadingText.textContent.includes("layout: null")) {
+      leadingText.remove();
+    }
+
+    const posterTemplate = document.getElementById("poster-template");
+    const posterMarkup = posterTemplate.innerHTML;
+    const posters = posterTemplate.content.querySelectorAll(".poster");
+
+    if (!posterMarkup.includes("{%") && posters.length > 0) {
+      document.getElementById("poster-grid").append(posterTemplate.content.cloneNode(true));
+      document.getElementById("poster-empty-state").hidden = true;
+    }
+  </script>
+</body>
+</html>
