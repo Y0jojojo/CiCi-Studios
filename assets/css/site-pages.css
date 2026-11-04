@@ -205,6 +205,39 @@ main { width: min(100% - 96px, 1200px); margin: 0 auto; }
   line-height: 1.8;
 }
 .content-section { padding: 20px 0 120px; }
+.privacy-content { max-width: 860px; padding-top: 0; }
+.privacy-content > p,
+.privacy-content li {
+  color: var(--cream-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.privacy-content > p { margin: 0 0 24px; }
+.privacy-content section {
+  margin-top: 42px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.privacy-content h2 {
+  margin: 0 0 14px;
+  color: var(--signal);
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 600;
+  line-height: .95;
+  text-transform: uppercase;
+}
+.privacy-content p { margin: 0 0 14px; color: var(--cream-muted); line-height: 1.8; }
+.privacy-content ul { margin: 0 0 18px; padding-left: 1.3em; }
+.privacy-content li + li { margin-top: 8px; }
+.privacy-content a { color: var(--signal); text-underline-offset: .2em; }
+.privacy-updated {
+  color: var(--signal) !important;
+  font-family: var(--mono);
+  font-size: .68rem !important;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
 .section-heading {
   margin: 0 0 28px;
   font-family: var(--display);
